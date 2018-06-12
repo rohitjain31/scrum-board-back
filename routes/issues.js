@@ -71,10 +71,11 @@ router.put('/update', (req, res) => {
 
 // Remove an issue
 router.delete('/delete/:id', (req, res) => {
-    let id = req.query.id;
-    Issues.findByIdAndRemove(id)
+    let id = req.params.id;
+    console.log(id);
+    Issues.findByIdAndRemove({ _id: id })
         .then((result) => {
-            res.jspn({
+            res.json({
                 error: false,
                 result: result
             });
