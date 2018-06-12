@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var cors = require('cors')
+var cors = require('cors');
 
 var index = require('./routes/index');
 var issues = require('./routes/issues');
@@ -13,6 +13,13 @@ var issues = require('./routes/issues');
 var configDB = require('./config/database.js');
 mongoose.connect(configDB.url);
 mongoose.Promise = global.Promise;
+
+var conn = mongoose.connection;
+conn.on('error', console.error.bind(console, 'connection error:'));
+
+conn.once('open', function() {
+  console.log('Connection open');
+});
 
 var app = express();
 
