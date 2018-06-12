@@ -69,4 +69,21 @@ router.put('/update', (req, res) => {
 
 });
 
+// Remove an issue
+router.delete('/delete/:id', (req, res) => {
+    let id = req.query.id;
+    Issues.findByIdAndRemove(id)
+        .then((result) => {
+            res.jspn({
+                error: false,
+                result: result
+            });
+        })
+        .catch((e) => {
+            res.json({
+                error: true
+            });
+        });
+})
+
 module.exports = router;
